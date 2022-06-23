@@ -10,10 +10,12 @@ class Collectibles(container.Container):
         super().__init__()
 
     def find_coins(self):
-        match = list(pyautogui.locateAllOnScreen('Collectibles_imgs/coin.png', confidence=0.6))
+        window = pyautogui.getWindowsWithTitle('BlueStacks App Player')[0]
+        match = list(pyautogui.locateAllOnScreen('Collectibles_imgs/coin.png', confidence=0.6, region=(window.box.left, window.box.top, window.box.width, window.box.height)))
         if match:
             # print(match)
             closest = max(match, key=lambda x: x[1])
+            # pyautogui.moveTo(closest[0], closest[1])
             return closest[1] - self.screen_height / 2
         else:
             return 0

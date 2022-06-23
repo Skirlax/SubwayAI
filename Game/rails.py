@@ -15,6 +15,16 @@ class Rails(container.Container):
         else:
             return 0
 
+    def lef_or_right_free(self):
+        right = pyautogui.locateOnWindow('right.png', 'BlueStacks App Player', confidence=0.5)
+        left = pyautogui.locateOnWindow('left.png', 'BlueStacks App Player', confidence=0.5)
+        if right is not None:
+            return 'right'
+        elif left is not None:
+            return 'left'
+        else:
+            return 'none'
+
     # def are_free_rails(self):
     #     match = pyautogui.locateAOnWindow('rails.png','BlueStacks App Player' ,confidence=0.6)
     #     if match is not None:
