@@ -1,9 +1,11 @@
+import cv2
 import pyautogui
 
 
 class Obsticles:
     def __init__(self):
         self.window = pyautogui.getWindowsWithTitle('BlueStacks App Player')[0]
+        self.general_obstacle = cv2.imread('Obsticles/general.png')
 
     def find_small_obsticle(self):
         match = pyautogui.locateOnWindow('Obsticles/small.png', 'BlueStacks App Player', confidence=0.6)
@@ -26,10 +28,10 @@ class Obsticles:
             return match[1] - self.window.height / 2
 
     def find_general_obsticle(self, return_x=False):
-        match = pyautogui.locateOnWindow('Obsticles/general.png', 'BlueStacks App Player', confidence=0.5)
+        match = pyautogui.locateOnScreen(self.general_obstacle, region=self.window.box, confidence=0.55, grayscale=True)
         if match is not None:
 
-            return [match[0], match[1]]
+            return [(match[0] - self.window.left) + match[2] / 2, match[1]]
 
         else:
 
